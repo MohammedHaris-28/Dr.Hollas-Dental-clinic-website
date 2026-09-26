@@ -1,281 +1,521 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { 
-  Calendar, 
-  ArrowUpRight, 
-  Award, 
-  Star,
-  ShieldCheck,
-  Building2,
-  MapPin,
+import { Link } from "react-router-dom";
+import {
+  ArrowUpRight,
+  Calendar,
   ChevronLeft,
   ChevronRight,
+  Clock,
+  MapPin,
+  ShieldCheck,
   Sparkles,
-  Clock
+  Stethoscope,
+  Star,
+  Phone,
 } from "lucide-react";
 
-// Real clinical / specialist portrait assets
-import doctorHero from "@/assets/img 5.webp"; // Dr. Akarsh Niranjan Profile Portrait
-import clinicInterior from "@/assets/img 2.webp"; // Scandinavian Medical Lounge / Operatory Suite
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
-// Slide deck data highlighting the clinic first
-const CAROUSEL_SLIDES = [
+import clinicImage from "@/assets/img 2.webp";
+import doctorImage from "@/assets/img 5.webp";
+
+const HERO_SLIDES = [
   {
     id: "clinic",
-    title: "Niranjans Dental Care & Orthodontic Center",
-    subtitle: "100 Feet Rd, Vinoba Nagara, Shivamogga",
-    badge: "Premier Multi-Specialty Center",
-    image: clinicInterior,
-    tag: "Laser Dentistry & Modern Operatory",
+    eyebrow: "Dr. Holla's Wide Smiles",
+    title: "Modern dentistry.",
+    highlight: "Personalised care.",
+    description:
+      "A contemporary dental clinic focused on comfortable treatment, advanced dentistry, and long-term oral health for every smile.",
+    image: clinicImage,
+    label: "Wide Smiles Dental Clinic & Implant Center",
+    location: "Shivamogga, Karnataka",
   },
   {
     id: "doctor",
-    title: "Led By Best Orthodontics Specialist",
-    subtitle: "Orthodontics & Dentofacial Orthopaedics",
-    badge: "Lead Specialist Practitioner",
-    image: doctorHero,
-    tag: "Verified KSDC License #45334 A",
+    eyebrow: "Expert Dental Care",
+    title: "Confident smiles",
+    highlight: "start with expert care.",
+    description:
+      "From preventive and restorative dentistry to implants, orthodontics, and smile-focused treatments, your care begins with an individual clinical assessment.",
+    image: doctorImage,
+    label: "Dr. Holla's Wide Smiles Dental Clinic",
+    location: "Shivamogga, Karnataka",
   },
 ];
 
-const PremiumOrthodonticHero = () => {
+const trustItems = [
+  {
+    icon: ShieldCheck,
+    title: "Patient-first care",
+    text: "Comfort & clarity",
+  },
+  {
+    icon: Stethoscope,
+    title: "Comprehensive dentistry",
+    text: "Multiple treatment needs",
+  },
+  {
+    icon: Sparkles,
+    title: "Modern approach",
+    text: "Technology-led care",
+  },
+];
+
+export default function DentalHero() {
   const [activeSlide, setActiveSlide] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
 
-  // Auto-slide exactly every 3 seconds (3000ms) with smooth transitions
+  const slide = HERO_SLIDES[activeSlide];
+
   useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveSlide((prev) => (prev + 1) % CAROUSEL_SLIDES.length);
-    }, 3000);
+    if (isPaused) return;
 
-    return () => clearInterval(interval);
-  }, []);
+    const interval = window.setInterval(() => {
+      setActiveSlide((current) => (current + 1) % HERO_SLIDES.length);
+    }, 5000);
 
-  const handleNext = () => {
-    setActiveSlide((prev) => (prev + 1) % CAROUSEL_SLIDES.length);
+    return () => window.clearInterval(interval);
+  }, [isPaused]);
+
+  const nextSlide = () => {
+    setActiveSlide((current) => (current + 1) % HERO_SLIDES.length);
   };
 
-  const handlePrev = () => {
-    setActiveSlide((prev) => (prev - 1 + CAROUSEL_SLIDES.length) % CAROUSEL_SLIDES.length);
-  };
-
-  // Ultra-smooth animation variants using custom cubic-bezier
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.1, delayChildren: 0.1 }
-    }
-  };
-
-  const fadeUpVariants = {
-    hidden: { opacity: 0, y: 25 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const }
-    }
+  const previousSlide = () => {
+    setActiveSlide(
+      (current) => (current - 1 + HERO_SLIDES.length) % HERO_SLIDES.length
+    );
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center bg-[#F8FAFC] overflow-hidden pt-28 pb-16 lg:py-0 antialiased selection:bg-[#3B82F6]/10">
-      
-      {/* Dynamic Background Glows */}
-      <div className="absolute top-[-10%] right-[-5%] w-[650px] h-[650px] bg-[#10B981]/10 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-[-10%] left-[-5%] w-[550px] h-[550px] bg-[#3B82F6]/08 rounded-full blur-[130px] pointer-events-none" />
+    <div className="min-h-screen bg-[#FAFAFA] text-[#111827]">
+      <Navbar />
 
-      <div className="w-full max-w-[1280px] mx-auto px-6 sm:px-8 lg:px-12 relative z-10">
-        <motion.div 
-          className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          
-          {/* LEFT COLUMN: Clinic-First Editorial Typography */}
-          <div className="lg:col-span-6 flex flex-col justify-center space-y-8 text-center lg:text-left">
-            
-            {/* Top Badge: Clinic Highlight */}
-            <motion.div 
-              variants={fadeUpVariants}
-              className="self-center lg:self-start inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#ECFDF5] border border-[#10B981]/25 text-[#0F172A] text-xs font-semibold tracking-wider uppercase"
-            >
-              <Building2 size={14} className="text-[#10B981]" />
-              <span className="font-semibold text-[#0F172A] tracking-wider">Shivamogga's Advanced Dental Center</span>
-            </motion.div>
+      <main>
+        {/* =========================================================
+            HERO
+        ========================================================== */}
+        <section className="relative min-h-[100svh] overflow-hidden bg-[#FAFAFA]">
+          {/* Background atmosphere */}
+          <div className="pointer-events-none absolute inset-0 overflow-hidden">
+            <div className="absolute -left-[18%] top-[18%] h-[520px] w-[520px] rounded-full bg-orange-100/70 blur-[130px]" />
 
-            <div className="space-y-4">
-              {/* Primary Headline: Clinic Focused */}
-              <motion.h1 
-                variants={fadeUpVariants}
-                className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#0F172A] tracking-tight leading-[1.15]"
+            <div className="absolute -right-[12%] top-[5%] h-[620px] w-[620px] rounded-full bg-blue-100/60 blur-[150px]" />
+
+            <div className="absolute bottom-[-25%] left-[35%] h-[500px] w-[500px] rounded-full bg-slate-100 blur-[130px]" />
+
+            {/* Subtle editorial grid */}
+            <div
+              className="absolute inset-0 opacity-[0.028]"
+              style={{
+                backgroundImage:
+                  "linear-gradient(#111827 1px, transparent 1px), linear-gradient(90deg, #111827 1px, transparent 1px)",
+                backgroundSize: "48px 48px",
+              }}
+            />
+          </div>
+
+          <div className="relative z-10 mx-auto flex min-h-[100svh] w-full max-w-[1440px] items-center px-5 pb-12 pt-28 sm:px-8 lg:px-12 lg:py-20 xl:px-16">
+            <div className="grid w-full grid-cols-1 items-center gap-12 lg:grid-cols-[1.02fr_0.98fr] lg:gap-14 xl:gap-20">
+              {/* =====================================================
+                  LEFT — CONTENT
+              ====================================================== */}
+              <motion.div
+                initial="hidden"
+                animate="visible"
+                className="order-2 lg:order-1"
               >
-                Niranjans Dental Care <br />
-                <span className="bg-gradient-to-r from-[#2563EB] to-[#1D4ED8] bg-clip-text text-transparent">
-                  & Orthodontic Center
-                </span>
-              </motion.h1>
+                {/* Small premium label */}
+                <motion.div
+                  variants={{
+                    hidden: { opacity: 0, y: 15 },
+                    visible: {
+                      opacity: 1,
+                      y: 0,
+                      transition: { duration: 0.6 },
+                    },
+                  }}
+                  className="mb-6"
+                >
+                  <div className="inline-flex items-center gap-2.5 rounded-full border border-slate-200 bg-white/80 px-3.5 py-2 shadow-sm backdrop-blur-xl">
+                    <span className="relative flex h-2 w-2">
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#FF5500] opacity-50" />
+                      <span className="relative h-2 w-2 rounded-full bg-[#FF5500]" />
+                    </span>
 
-              {/* Sub-headline: Specialist Lead */}
-              <motion.div 
-                variants={fadeUpVariants}
-                className="py-1.5 border-l-2 border-[#D97706] pl-4 text-left inline-block max-w-xl mx-auto lg:mx-0"
-              >
-                <p className="text-[#0F172A] font-bold text-sm sm:text-base tracking-wide uppercase">
-                  Led By Expert Dentist's
-                </p>
-                <p className="text-slate-500 text-xs sm:text-sm font-medium">
-                  Orthodontics & Dentofacial Orthopaedics Specialist
-                </p>
+                    <span className="text-[9px] font-black uppercase tracking-[0.18em] text-slate-600 sm:text-[10px]">
+                      Wide Smiles Dental • Shivamogga
+                    </span>
+                  </div>
+                </motion.div>
+
+                {/* Main headline */}
+                <motion.div
+                  variants={{
+                    hidden: { opacity: 0, y: 25 },
+                    visible: {
+                      opacity: 1,
+                      y: 0,
+                      transition: {
+                        duration: 0.75,
+                        ease: [0.16, 1, 0.3, 1],
+                      },
+                    },
+                  }}
+                >
+                  <h1 className="max-w-[760px] text-[3rem] font-black leading-[0.96] tracking-[-0.055em] text-[#111827] sm:text-5xl md:text-6xl lg:text-[4.6rem] xl:text-[5.2rem]">
+                    Your smile,
+                    <br />
+                    <span className="text-[#FF5500]">our priority.</span>
+                  </h1>
+
+                  <div className="mt-5 flex items-center gap-3">
+                    <div className="h-px w-10 bg-[#FF5500]" />
+                    <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">
+                      Dr. Holla's Wide Smiles
+                    </span>
+                  </div>
+                </motion.div>
+
+                {/* Description */}
+                <motion.p
+                  variants={{
+                    hidden: { opacity: 0, y: 20 },
+                    visible: {
+                      opacity: 1,
+                      y: 0,
+                      transition: {
+                        duration: 0.7,
+                        delay: 0.08,
+                      },
+                    },
+                  }}
+                  className="mt-7 max-w-[610px] text-[15px] leading-7 text-slate-500 sm:text-base lg:text-[17px]"
+                >
+                  Thoughtfully planned dental care combining clinical
+                  expertise, modern technology, and a comfortable patient
+                  experience — from everyday dental needs to advanced
+                  restorative and implant care.
+                </motion.p>
+
+                {/* CTA buttons */}
+                <motion.div
+                  variants={{
+                    hidden: { opacity: 0, y: 20 },
+                    visible: {
+                      opacity: 1,
+                      y: 0,
+                      transition: {
+                        duration: 0.7,
+                        delay: 0.14,
+                      },
+                    },
+                  }}
+                  className="mt-8 flex flex-col gap-3 sm:flex-row"
+                >
+                  <Link
+                    to="/contact"
+                    className="group inline-flex h-14 items-center justify-center rounded-2xl bg-[#FF5500] px-7 text-xs font-black text-white shadow-[0_16px_35px_rgba(255,85,0,0.2)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#e94d00] hover:shadow-[0_20px_40px_rgba(255,85,0,0.28)]"
+                  >
+                    <Calendar className="mr-2.5 h-4 w-4" />
+                    Book an Appointment
+                    <ArrowUpRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                  </Link>
+
+                  <a
+                    href="tel:+918618955829"
+                    className="inline-flex h-14 items-center justify-center rounded-2xl border border-slate-200 bg-white px-7 text-xs font-black text-[#111827] shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-orange-200 hover:text-[#FF5500] hover:shadow-md"
+                  >
+                    <Phone className="mr-2 h-4 w-4" />
+                    Call the Clinic
+                  </a>
+                </motion.div>
+
+                {/* Trust indicators */}
+                <motion.div
+                  variants={{
+                    hidden: { opacity: 0, y: 20 },
+                    visible: {
+                      opacity: 1,
+                      y: 0,
+                      transition: {
+                        duration: 0.7,
+                        delay: 0.2,
+                      },
+                    },
+                  }}
+                  className="mt-9 grid max-w-[650px] grid-cols-1 gap-3 border-t border-slate-200 pt-6 sm:grid-cols-3 sm:gap-0"
+                >
+                  {trustItems.map((item, index) => {
+                    const Icon = item.icon;
+
+                    return (
+                      <div
+                        key={item.title}
+                        className={`flex items-center gap-3 ${
+                          index !== 0
+                            ? "border-slate-200 sm:border-l sm:pl-5"
+                            : ""
+                        }`}
+                      >
+                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-orange-50">
+                          <Icon className="h-4 w-4 text-[#FF5500]" />
+                        </div>
+
+                        <div>
+                          <p className="text-[10px] font-black text-[#111827]">
+                            {item.title}
+                          </p>
+                          <p className="mt-0.5 text-[9px] font-medium text-slate-400">
+                            {item.text}
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </motion.div>
+
+                {/* Location / timing */}
+                <motion.div
+                  variants={{
+                    hidden: { opacity: 0 },
+                    visible: {
+                      opacity: 1,
+                      transition: {
+                        duration: 0.6,
+                        delay: 0.3,
+                      },
+                    },
+                  }}
+                  className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-[10px] font-bold uppercase tracking-[0.12em] text-slate-400"
+                >
+                  <span className="flex items-center gap-1.5">
+                    <MapPin className="h-3.5 w-3.5 text-[#FF5500]" />
+                    Shivamogga, Karnataka
+                  </span>
+
+                  <span className="hidden h-3 w-px bg-slate-200 sm:block" />
+
+                  <span className="flex items-center gap-1.5">
+                    <Clock className="h-3.5 w-3.5 text-[#FF5500]" />
+                    Mon – Sat
+                  </span>
+                </motion.div>
               </motion.div>
 
-              <motion.p 
-                variants={fadeUpVariants}
-                className="text-slate-600 text-base sm:text-lg font-normal max-w-xl mx-auto lg:mx-0 leading-relaxed pt-1"
+              {/* =====================================================
+                  RIGHT — VISUAL STORYTELLING
+              ====================================================== */}
+              <motion.div
+                initial={{ opacity: 0, x: 35 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{
+                  duration: 1,
+                  delay: 0.15,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+                className="order-1 flex justify-center lg:order-2 lg:justify-end"
               >
-                A modern dental healthcare facility providing advanced braces, laser treatments, ceramic crowns, root canals, and cosmetic smile designs with state-of-the-art medical technology.
-              </motion.p>
-            </div>
+                <div
+                  className="relative w-full max-w-[520px]"
+                  onMouseEnter={() => setIsPaused(true)}
+                  onMouseLeave={() => setIsPaused(false)}
+                >
+                  {/* Decorative background shape */}
+                  <div className="absolute -right-6 top-10 h-[82%] w-[85%] rounded-[42px] bg-[#FF5500]/[0.055]" />
 
-            {/* Action Buttons */}
-            <motion.div 
-              variants={fadeUpVariants}
-              className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 w-full sm:max-w-md lg:max-w-none mx-auto lg:mx-0"
-            >
-              <Button
-                size="lg"
-                onClick={() => window.open("https://www.practo.com/shimoga/doctor/akarsh-niranjan-dentist", "_blank", "noopener,noreferrer")}
-                className="w-full sm:w-auto rounded-full px-8 h-14 bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-medium text-sm tracking-wide flex items-center justify-center gap-2 shadow-lg shadow-[#2563EB]/20 active:scale-[0.99] transition-all duration-200 border-0 group"
-              >
-                <Calendar className="h-4 w-4 text-white" />
-                <span>Book Appointment</span>
-                <ArrowUpRight size={15} className="text-white/80 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-              </Button>
+                  <div className="absolute -bottom-7 -left-7 h-32 w-32 rounded-full border border-orange-200/50" />
 
-              <Button
-                variant="outline"
-                size="lg"
-                onClick={() => window.location.href = "tel:+918618955829"}
-                className="w-full sm:w-auto rounded-full px-8 h-14 border-slate-200 bg-white text-[#0F172A] hover:bg-slate-50 font-medium text-sm shadow-sm active:scale-[0.99] transition-all duration-200"
-              >
-                <span>Call +91 86189 55829</span>
-              </Button>
-            </motion.div>
+                  {/* Main glass frame */}
+                  <div className="relative rounded-[38px] border border-white bg-white/70 p-2.5 shadow-[0_35px_90px_-25px_rgba(15,23,42,0.28)] backdrop-blur-xl sm:p-3">
+                    <div className="relative aspect-[0.9/1] overflow-hidden rounded-[30px] bg-slate-900">
+                      <AnimatePresence mode="wait">
+                        <motion.div
+                          key={slide.id}
+                          initial={{
+                            opacity: 0,
+                            scale: 1.06,
+                          }}
+                          animate={{
+                            opacity: 1,
+                            scale: 1,
+                          }}
+                          exit={{
+                            opacity: 0,
+                            scale: 0.98,
+                          }}
+                          transition={{
+                            duration: 0.9,
+                            ease: [0.16, 1, 0.3, 1],
+                          }}
+                          className="absolute inset-0"
+                        >
+                          <img
+                            src={slide.image}
+                            alt={slide.label}
+                            className="h-full w-full object-cover"
+                          />
 
-            {/* Location & Practice Metrics */}
-            <motion.div 
-              variants={fadeUpVariants}
-              className="grid grid-cols-3 gap-6 pt-6 border-t border-slate-200/80 max-w-xl mx-auto lg:mx-0 text-left"
-            >
-              <div>
-                <div className="flex items-center gap-1 text-[#0F172A]">
-                  <MapPin className="h-4 w-4 text-[#2563EB]" />
-                  <span className="block text-base font-bold tracking-tight">Vinoba Nagara</span>
-                </div>
-                <span className="block text-[11px] font-semibold text-slate-400 uppercase tracking-wider mt-0.5">Shivamogga</span>
-              </div>
-              <div>
-                <div className="flex items-center gap-1 text-[#0F172A]">
-                  <Clock className="h-4 w-4 text-[#10B981]" />
-                  <span className="block text-base font-bold tracking-tight">Mon – Sat</span>
-                </div>
-                <span className="block text-[11px] font-semibold text-slate-400 uppercase tracking-wider mt-0.5">10AM–2PM | 4:30–8PM</span>
-              </div>
-              <div>
-                <div className="flex items-center gap-1 text-[#0F172A]">
-                  <ShieldCheck className="h-4 w-4 text-[#D97706]" />
-                  <span className="block text-base font-bold tracking-tight">Verified</span>
-                </div>
-                <span className="block text-[11px] font-semibold text-slate-400 uppercase tracking-wider mt-0.5">KSDC Reg #45334 A</span>
-              </div>
-            </motion.div>
-          </div>
+                          {/* Image overlays */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-[#111827]/95 via-[#111827]/15 to-transparent" />
 
-          {/* RIGHT COLUMN: Smooth Auto-Sliding 3-Second Deck */}
-          <div className="lg:col-span-6 relative w-full flex flex-col items-center justify-center lg:items-end mt-4 lg:mt-0 select-none">
-            
-            {/* Outer Glass Frame */}
-            <div className="relative w-full max-w-[460px] aspect-[4/5] rounded-[32px] p-3 bg-white/80 backdrop-blur-xl border border-white/90 shadow-2xl shadow-slate-200/80">
-              
-              <div className="relative w-full h-full rounded-[24px] overflow-hidden bg-slate-950 group">
-                <AnimatePresence mode="wait">
+                          <div className="absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-black/25 to-transparent" />
+
+                          {/* Top label */}
+                          <div className="absolute left-5 right-5 top-5 flex items-center justify-between">
+                            <span className="rounded-full border border-white/20 bg-black/20 px-3.5 py-2 text-[8px] font-black uppercase tracking-[0.17em] text-white backdrop-blur-md">
+                              {slide.eyebrow}
+                            </span>
+
+                            <div className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-black/20 backdrop-blur-md">
+                              <Sparkles className="h-3.5 w-3.5 text-white" />
+                            </div>
+                          </div>
+
+                          {/* Bottom content */}
+                          <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
+                            <div className="mb-3 flex items-center gap-2">
+                              <span className="h-1.5 w-1.5 rounded-full bg-[#FF5500]" />
+                              <span className="text-[9px] font-black uppercase tracking-[0.18em] text-white/60">
+                                {slide.label}
+                              </span>
+                            </div>
+
+                            <h2 className="text-3xl font-black leading-[1.02] tracking-tight text-white sm:text-4xl">
+                              {slide.title}
+                              <br />
+                              <span className="text-orange-300">
+                                {slide.highlight}
+                              </span>
+                            </h2>
+
+                            <div className="mt-4 flex items-center gap-2 text-white/70">
+                              <MapPin className="h-3.5 w-3.5 text-orange-300" />
+                              <span className="text-xs font-medium">
+                                {slide.location}
+                              </span>
+                            </div>
+                          </div>
+                        </motion.div>
+                      </AnimatePresence>
+
+                      {/* Navigation controls */}
+                      <div className="absolute bottom-5 right-5 z-20 flex gap-1.5">
+                        <button
+                          type="button"
+                          onClick={previousSlide}
+                          aria-label="Previous slide"
+                          className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-black/20 text-white backdrop-blur-md transition-all hover:bg-black/50 active:scale-95"
+                        >
+                          <ChevronLeft className="h-4 w-4" />
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={nextSlide}
+                          aria-label="Next slide"
+                          className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-black/20 text-white backdrop-blur-md transition-all hover:bg-black/50 active:scale-95"
+                        >
+                          <ChevronRight className="h-4 w-4" />
+                        </button>
+                      </div>
+
+                      {/* Slide indicators */}
+                      <div className="absolute bottom-6 left-6 z-20 flex items-center gap-1.5">
+                        {HERO_SLIDES.map((item, index) => (
+                          <button
+                            key={item.id}
+                            type="button"
+                            onClick={() => setActiveSlide(index)}
+                            aria-label={`Go to slide ${index + 1}`}
+                            className="overflow-hidden rounded-full"
+                          >
+                            <span
+                              className={`block h-1.5 rounded-full transition-all duration-500 ${
+                                activeSlide === index
+                                  ? "w-8 bg-white"
+                                  : "w-1.5 bg-white/40 hover:bg-white/70"
+                              }`}
+                            />
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Floating trust card */}
                   <motion.div
-                    key={activeSlide}
-                    initial={{ opacity: 0, scale: 1.04 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.96 }}
-                    transition={{ 
-                      duration: 0.9, 
-                      ease: [0.16, 1, 0.3, 1] 
+                    animate={{ y: [0, -7, 0] }}
+                    transition={{
+                      duration: 4.5,
+                      repeat: Infinity,
+                      ease: "easeInOut",
                     }}
-                    className="relative w-full h-full"
+                    className="absolute -bottom-5 -left-2 z-30 rounded-2xl border border-white bg-white/95 p-3.5 shadow-[0_20px_50px_rgba(15,23,42,0.13)] backdrop-blur-xl sm:-left-8 sm:p-4"
                   >
-                    <img 
-                      src={CAROUSEL_SLIDES[activeSlide].image} 
-                      alt={CAROUSEL_SLIDES[activeSlide].title} 
-                      className="w-full h-full object-cover"
-                    />
-                    
-                    {/* Soft Vignette Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/25 to-transparent" />
+                    <div className="flex items-center gap-3">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-50">
+                        <ShieldCheck className="h-4 w-4 text-[#FF5500]" />
+                      </div>
 
-                    {/* Content Overlay */}
-                    <div className="absolute bottom-0 left-0 right-0 p-6 text-white space-y-2">
-                      <span className="inline-block px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[10px] font-bold tracking-widest uppercase text-white/90 border border-white/20">
-                        {CAROUSEL_SLIDES[activeSlide].badge}
-                      </span>
-                      <h3 className="text-xl font-bold text-white tracking-tight leading-snug">
-                        {CAROUSEL_SLIDES[activeSlide].title}
-                      </h3>
-                      <p className="text-xs text-slate-300 font-medium">
-                        {CAROUSEL_SLIDES[activeSlide].subtitle}
-                      </p>
+                      <div>
+                        <p className="text-[10px] font-black uppercase tracking-[0.12em] text-[#111827]">
+                          Care you can trust
+                        </p>
+
+                        <div className="mt-1 flex items-center gap-1.5">
+                          <Star className="h-3 w-3 fill-orange-400 text-orange-400" />
+                          <span className="text-[9px] font-semibold text-slate-400">
+                            Comfort • Clarity • Care
+                          </span>
+                        </div>
+                      </div>
                     </div>
                   </motion.div>
-                </AnimatePresence>
 
-                {/* Manual Navigation Arrows */}
-                <div className="absolute top-4 right-4 z-30 flex items-center gap-2">
-                  <button
-                    onClick={handlePrev}
-                    aria-label="Previous Slide"
-                    className="w-9 h-9 rounded-full bg-slate-900/40 hover:bg-slate-900/80 backdrop-blur-md text-white flex items-center justify-center border border-white/20 transition-all active:scale-95"
+                  {/* Floating location card */}
+                  <motion.div
+                    animate={{ y: [0, 6, 0] }}
+                    transition={{
+                      duration: 5,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                    className="absolute -right-2 top-[32%] z-30 hidden rounded-2xl border border-white bg-white/95 px-4 py-3 shadow-[0_20px_50px_rgba(15,23,42,0.1)] backdrop-blur-xl sm:block lg:-right-7"
                   >
-                    <ChevronLeft size={18} />
-                  </button>
-                  <button
-                    onClick={handleNext}
-                    aria-label="Next Slide"
-                    className="w-9 h-9 rounded-full bg-slate-900/40 hover:bg-slate-900/80 backdrop-blur-md text-white flex items-center justify-center border border-white/20 transition-all active:scale-95"
-                  >
-                    <ChevronRight size={18} />
-                  </button>
+                    <div className="flex items-center gap-2.5">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-slate-100">
+                        <MapPin className="h-3.5 w-3.5 text-[#FF5500]" />
+                      </div>
+
+                      <div>
+                        <p className="text-[9px] font-black uppercase tracking-wider text-[#111827]">
+                          Visit Us
+                        </p>
+                        <p className="mt-0.5 text-[9px] text-slate-400">
+                          Shivamogga, Karnataka
+                        </p>
+                      </div>
+                    </div>
+                  </motion.div>
                 </div>
-
-                {/* 3-Second Active Progress Bar / Dots */}
-                <div className="absolute top-4 left-4 z-30 flex items-center gap-1.5">
-                  {CAROUSEL_SLIDES.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setActiveSlide(index)}
-                      className={`h-1.5 rounded-full transition-all duration-500 ${
-                        activeSlide === index ? "w-7 bg-white" : "w-1.5 bg-white/40"
-                      }`}
-                      aria-label={`Go to slide ${index + 1}`}
-                    />
-                  ))}
-                </div>
-              </div>
-
-             
-
+              </motion.div>
             </div>
-
           </div>
-        </motion.div>
-      </div>
-    </section>
-  );
-};
 
-export default PremiumOrthodonticHero;
+          {/* Bottom scroll indicator */}
+          <div className="absolute bottom-5 left-1/2 hidden -translate-x-1/2 items-center gap-3 text-[8px] font-black uppercase tracking-[0.22em] text-slate-300 lg:flex">
+            <span className="h-px w-8 bg-slate-200" />
+            Discover our care
+            <span className="h-px w-8 bg-slate-200" />
+          </div>
+        </section>
+      </main>
+
+      <Footer />
+    </div>
+  );
+}

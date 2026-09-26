@@ -1,46 +1,79 @@
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
-import FeaturesSection from "@/components/FeaturesSection";
-import HowItWorksSection from "@/components/HowItWorksSection";
+import TreatmentsSection from "@/components/TreatmentsSection";
+import DoctorsSection from "@/components/DoctorsSection";
 import WhyChooseUsSection from "@/components/WhyChooseUsSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import CTASection from "@/components/CTASection";
-import FooterSection from "@/components/FooterSection";
+import FooterSection from "@/components/Footer";
 
-const Index = () => (
-  <div className="min-h-screen bg-background flex flex-col">
-    <Navbar />
-    
-    <main className="flex-1">
-      {/* Hero Content Block */}
-      <HeroSection />
+const Index = () => {
+  return (
+    <div className="w-full min-h-screen bg-background text-foreground overflow-x-hidden relative">
+      {/* Sticky/Fixed Navigation Bar */}
+      <Navbar />
 
-      {/* Features Content Block */}
-      <section id="features">
-        <FeaturesSection />
-      </section>
+      {/* Main Container spanning full width */}
+      <main className="w-full flex flex-col">
+        {/* 01 — First impression + primary action */}
+        <section
+          id="hero"
+          aria-label="Dr. Hollas Dental Clinic"
+          className="w-full"
+        >
+          <HeroSection />
+        </section>
 
-      {/* How It Works Content Block */}
-      <section id="how-it-works">
-        <HowItWorksSection />
-      </section>
+        {/* 02 — Treatment discovery */}
+        <section
+          id="treatments"
+          aria-label="Dental treatments"
+          className="w-full"
+        >
+          <TreatmentsSection />
+        </section>
 
-      {/* Why Choose Us Content Block */}
-      <section id="why-choose-us">
-        <WhyChooseUsSection />
-      </section>
+        {/* 03 — Meet the doctors */}
+        <section
+          id="doctors"
+          aria-label="Our doctors"
+          className="w-full"
+        >
+          <DoctorsSection />
+        </section>
 
-      {/* Testimonials Content Block */}
-      <section id="testimonials">
-        <TestimonialsSection />
-      </section>
+        {/* 04 — Why patients choose the clinic */}
+        <section
+          id="why-dr-hollas"
+          aria-label="Why choose Dr. Hollas"
+          className="w-full"
+        >
+          <WhyChooseUsSection />
+        </section>
 
-      {/* Direct Action Core Component */}
-      <CTASection />
-    </main>
+        {/* 05 — Patient experiences */}
+        <section
+          id="testimonials"
+          aria-label="Patient testimonials"
+          className="w-full"
+        >
+          <TestimonialsSection />
+        </section>
 
-    <FooterSection />
-  </div>
-);
+        {/* 06 — Final appointment conversion */}
+        <section
+          id="appointment"
+          aria-label="Book an appointment"
+          className="w-full"
+        >
+          <CTASection />
+        </section>
+      </main>
+
+      {/* Full-width Footer */}
+      <FooterSection />
+    </div>
+  );
+};
 
 export default Index;

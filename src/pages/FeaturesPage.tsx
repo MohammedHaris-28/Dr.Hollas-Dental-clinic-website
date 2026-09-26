@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import Navbar from "@/components/Navbar";
-import FooterSection from "@/components/FooterSection";
+import FooterSection from "@/components/Footer";
 
 const features = [
   {
