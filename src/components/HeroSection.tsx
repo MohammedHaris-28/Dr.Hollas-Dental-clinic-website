@@ -515,7 +515,7 @@ export default function DentalHero() {
         </section>
       </main>
 
-      <Footer />
+    
     </div>
   );
 }
