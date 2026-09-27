@@ -130,7 +130,7 @@ export default function DentalHero() {
 
   // WhatsApp Booking Redirection
   const handleBookAppointment = () => {
-    const phoneNumber = "918618955829";
+    const phoneNumber = "917483822917";
     const message = encodeURIComponent(
       "Hello Dr. Holla's Wide Smiles Clinic, I would like to book an appointment."
     );
