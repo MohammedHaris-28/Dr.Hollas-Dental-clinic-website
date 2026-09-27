@@ -27,7 +27,7 @@ import YellowTeeth from "@/assets/yellow.webp";
 
 const services = [
   {
-    id: "general",
+    id: "general-dentistry",
     number: "01",
     icon: ShieldCheck,
     title: "General Dentistry",
@@ -40,7 +40,7 @@ const services = [
     accent: "orange",
   },
   {
-    id: "rct",
+    id: "root-canal-treatment",
     number: "02",
     icon: Activity,
     title: "Root Canal Treatment",
@@ -53,7 +53,7 @@ const services = [
     accent: "blue",
   },
   {
-    id: "implants",
+    id: "dental-implants",
     number: "03",
     icon: Award,
     title: "Dental Implants",
@@ -66,7 +66,7 @@ const services = [
     accent: "emerald",
   },
   {
-    id: "ortho",
+    id: "orthodontics",
     number: "04",
     icon: Smile,
     title: "Orthodontics & Braces",
@@ -79,7 +79,7 @@ const services = [
     accent: "violet",
   },
   {
-    id: "surgery",
+    id: "oral-surgery",
     number: "05",
     icon: Scissors,
     title: "Oral & Maxillofacial Surgery",
@@ -92,7 +92,7 @@ const services = [
     accent: "amber",
   },
   {
-    id: "pediatric",
+    id: "pediatric-dentistry",
     number: "06",
     icon: Baby,
     title: "Pediatric Dentistry",

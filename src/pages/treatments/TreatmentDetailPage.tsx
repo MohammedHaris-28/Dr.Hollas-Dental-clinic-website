@@ -14,6 +14,7 @@ import {
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ImgPediatricDentistry from "@/assets/img 4.webp";
 
 /* =========================================================
    TREATMENT DATA
@@ -324,7 +325,7 @@ const treatmentData: Record<
     intro:
       "Pediatric dentistry focuses on dental care for children, with treatment planned according to their changing teeth, mouth, and individual needs.",
     image:
-      "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&q=85&w=1600",
+      ImgPediatricDentistry,
     whatIsIt:
       "Pediatric dentistry is dental care focused on children and their developing teeth and mouth.",
     usedFor: [

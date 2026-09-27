@@ -16,6 +16,7 @@ import {
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ImgPediatricDentistry from "@/assets/img 4.webp";
 
 const treatments = [
   {
@@ -83,7 +84,7 @@ const treatments = [
       "Care for gum and supporting bone concerns, planned according to the patient's individual dental condition.",
     icon: HeartPulse,
     image:
-      "https://images.unsplash.com/photo-1606265752439-1f18756aa2a2?auto=format&fit=crop&q=85&w=1200",
+      "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=85&w=1000",
   },
   {
     id: "oral-surgery",
@@ -94,7 +95,7 @@ const treatments = [
       "Selected oral surgical procedures planned with clinical assessment, appropriate treatment, and patient comfort in mind.",
     icon: Scissors,
     image:
-      "https://images.unsplash.com/photo-1581585099408-0d4c0e0e0b3a?auto=format&fit=crop&q=85&w=1200",
+      ImgPediatricDentistry,
   },
   {
     id: "pediatric-dentistry",
@@ -105,7 +106,7 @@ const treatments = [
       "Dental care for children, with treatment planned according to their changing teeth, mouth, and individual needs.",
     icon: Baby,
     image:
-      "https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&q=85&w=1200",
+      ImgPediatricDentistry,
   },
   {
     id: "aesthetic-dentistry",
@@ -116,7 +117,7 @@ const treatments = [
       "Dental treatment focused on improving the appearance of teeth and the overall look of the smile.",
     icon: Sparkles,
     image:
-      "https://images.unsplash.com/photo-1494911840918-8c7e3b1f5f6a?auto=format&fit=crop&q=85&w=1200",
+      "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&q=85&w=1000",
   },
 ];
 
