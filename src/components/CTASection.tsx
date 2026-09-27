@@ -24,7 +24,6 @@ const AppointmentCTA = () => {
   });
 
   const clinicPhone = "74838 22917";
-  const secondaryPhone = "91135 50693";
   const whatsappNumber = "917483822917";
 
   const clinicAddress =
@@ -175,12 +174,6 @@ ${clinicAddress}
                       {clinicPhone}
                     </a>
 
-                    <a
-                      href="tel:+919113550693"
-                      className="font-bold text-sm sm:text-base text-slate-600 hover:text-[#FF5500] transition-colors"
-                    >
-                      {secondaryPhone}
-                    </a>
                   </div>
                 </div>
 

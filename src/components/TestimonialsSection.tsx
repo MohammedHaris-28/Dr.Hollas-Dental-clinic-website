@@ -334,7 +334,7 @@ export const TestimonialsSection: React.FC = () => {
           </p>
           <div className="pt-2">
             <a
-              href="https://maps.google.com"
+              href="https://search.google.com/local/writereview?placeid=ChIJ0-rxlCSpuzsRnhhQ3xTSajI"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-[#FF5500] text-white font-bold text-xs sm:text-sm hover:bg-[#FF5500]/90 transition-all shadow-md hover:shadow-lg"

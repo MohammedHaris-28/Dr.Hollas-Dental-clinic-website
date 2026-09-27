@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  Sparkles,
   GraduationCap,
   Award,
   Stethoscope,
@@ -17,8 +16,7 @@ import {
   RotateCw
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import Doctor from "@/assets/doctor-hero.jpg";
-import Navbar from "@/components/Navbar";
+import Doctor from "@/assets/doctor-hero.webp";
 
 interface DoctorHighlight {
   icon: React.ElementType;
@@ -46,7 +44,7 @@ interface Doctor {
 const DOCTORS: Doctor[] = [
   {
     id: "dr-shashanka-holla",
-    name: "Dr. Shashanka Holla",
+    name: "Dr.K Shashanka Holla",
     role: "Lead Periodontist & Implantologist",
     degrees: "BDS, MDS (Periodontics & Implantology)",
     regNo: "Reg. No: 45334 A",
@@ -61,8 +59,7 @@ const DOCTORS: Doctor[] = [
     metric: "MDS Periodontics",
     experience: "12+ Yrs Experience",
     badge: "Chief Specialist",
-    image:
-      Doctor,
+    image: Doctor,
     badgeIcon: Zap,
     highlights: [
       {
@@ -124,25 +121,20 @@ export const DoctorsPage: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col justify-between bg-[#F2F4F7] text-[#111827] selection:bg-[#FF5500]/20 selection:text-[#FF5500] relative overflow-x-hidden antialiased">
-      {/* Navigation Header */}
-      <Navbar />
-
       {/* Main Content Body */}
-      <main className="flex-1 pt-24 sm:pt-32 pb-16 sm:pb-24 px-4 sm:px-6 lg:px-8 relative">
+      <main className="flex-1 pt-20 sm:pt-32 pb-16 sm:pb-24 px-3 sm:px-6 lg:px-8 relative">
         {/* Ambient Lights */}
         <div className="pointer-events-none absolute -left-20 top-20 h-72 w-72 sm:h-96 sm:w-96 rounded-full bg-[#FF5500]/10 blur-3xl" />
         <div className="pointer-events-none absolute -right-20 top-1/2 h-80 w-80 sm:h-96 sm:w-96 rounded-full bg-slate-900/[0.04] blur-3xl" />
 
-        <div className="mx-auto max-w-6xl space-y-8 sm:space-y-16 relative z-10">
+        <div className="mx-auto max-w-6xl space-y-6 sm:space-y-16 relative z-10">
           {/* Header Section */}
           <div className="text-center max-w-3xl mx-auto space-y-3.5">
-            
-
             <motion.h1
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.25 }}
-              className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1]"
+              className="text-2xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1]"
             >
               Specialist Expertise Behind <br className="hidden sm:inline" />
               <span className="text-[#FF5500]">Your Complete Dental Health.</span>
@@ -157,21 +149,21 @@ export const DoctorsPage: React.FC = () => {
               Meet the MDS specialist doctors leading dental implants, pediatric care, laser periodontics, and comprehensive dentistry at Dr. Holla’s Wide Smiles in Shivamogga.
             </motion.p>
 
-            {/* Selector Tabs */}
+            {/* Selector Tabs (Fixed text overflow on mobile) */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.25 }}
-              className="pt-2 sm:pt-4 flex justify-center"
+              className="pt-2 sm:pt-4 flex justify-center px-1"
             >
-              <div className="inline-flex p-1.5 bg-white rounded-full border border-slate-200/90 shadow-sm w-full max-w-md sm:w-auto">
+              <div className="inline-flex p-1.5 bg-white rounded-full border border-slate-200/90 shadow-sm w-full max-w-lg sm:w-auto overflow-x-auto no-scrollbar">
                 {DOCTORS.map((doc) => {
                   const isActive = doc.id === activeDoctorId;
                   return (
                     <button
                       key={doc.id}
                       onClick={() => handleTabChange(doc.id)}
-                      className={`relative flex-1 sm:flex-initial px-4 sm:px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold transition-colors duration-150 flex items-center justify-center gap-2 touch-manipulation ${
+                      className={`relative flex-1 sm:flex-initial px-3 sm:px-5 py-2.5 rounded-full text-[11px] sm:text-sm font-bold transition-colors duration-150 flex items-center justify-center gap-1.5 touch-manipulation whitespace-nowrap ${
                         isActive
                           ? "text-white shadow-md shadow-slate-900/10"
                           : "text-slate-600 hover:text-[#111827]"
@@ -184,13 +176,13 @@ export const DoctorsPage: React.FC = () => {
                           transition={{ type: "spring", stiffness: 600, damping: 35 }}
                         />
                       )}
-                      <span className="relative z-10 flex items-center gap-2 truncate">
+                      <span className="relative z-10 flex items-center gap-1.5">
                         <Stethoscope
-                          className={`w-3.5 h-3.5 ${
+                          className={`w-3.5 h-3.5 shrink-0 ${
                             isActive ? "text-[#FF5500]" : "text-slate-400"
                           }`}
                         />
-                        {doc.name}
+                        <span>{doc.name}</span>
                       </span>
                     </button>
                   );
@@ -209,42 +201,45 @@ export const DoctorsPage: React.FC = () => {
               transition={{ duration: 0.15 }}
               className="w-full"
             >
-              {/* MOBILE ONLY: Fast 3D Flip Card */}
-              <div className="block lg:hidden [perspective:1000px] w-full min-h-[460px]">
+              {/* MOBILE ONLY: iOS WebKit-safe 3D Flip Card */}
+              <div className="block lg:hidden [perspective:1200px] w-full min-h-[580px] h-auto">
                 <motion.div
-                  className="relative w-full h-full min-h-[460px] rounded-[2.2rem] shadow-xl [transform-style:preserve-3d]"
+                  className="relative w-full h-full min-h-[580px] rounded-[2rem] shadow-xl [transform-style:preserve-3d]"
                   animate={{ rotateY: isFlipped ? 180 : 0 }}
-                  transition={{ duration: 0.2, ease: "easeOut" }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
                 >
                   {/* FRONT SIDE (MOBILE) */}
-                  <div 
+                  <div
                     onClick={() => setIsFlipped(true)}
-                    className="absolute inset-0 w-full h-full rounded-[2.2rem] overflow-hidden bg-white border border-slate-200/80 p-2.5 flex flex-col justify-between [backface-visibility:hidden] cursor-pointer touch-manipulation active:scale-[0.99] transition-transform duration-100"
+                    style={{ WebkitBackfaceVisibility: "hidden" }}
+                    className={`absolute inset-0 w-full h-full rounded-[2rem] overflow-hidden bg-white border border-slate-200/80 p-2.5 flex flex-col justify-between [backface-visibility:hidden] cursor-pointer touch-manipulation active:scale-[0.99] transition-transform duration-100 ${
+                      isFlipped ? "pointer-events-none" : "pointer-events-auto"
+                    }`}
                   >
-                    <div className="relative w-full h-full rounded-[1.8rem] overflow-hidden bg-slate-100 flex flex-col justify-between p-4">
+                    <div className="relative w-full h-full rounded-[1.6rem] overflow-hidden bg-slate-100 flex flex-col justify-between p-4">
                       <img
                         src={activeDoctor.image}
                         alt={activeDoctor.name}
                         className="absolute inset-0 h-full w-full object-cover object-center"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-black/30" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/30" />
 
                       {/* Top Badges */}
-                      <div className="relative z-10 flex items-center justify-between">
-                        <span className="bg-black/60 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1.5">
+                      <div className="relative z-10 flex items-center justify-between gap-2">
+                        <span className="bg-black/60 backdrop-blur-md border border-white/20 text-white text-[10px] font-bold px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1.5 shrink-0">
                           <Star className="w-3 h-3 text-[#FF5500] fill-[#FF5500]" />
                           {activeDoctor.badge}
                         </span>
 
-                        <span className="bg-[#FF5500] text-white text-[10px] font-bold px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1.5">
+                        <span className="bg-[#FF5500] text-white text-[10px] font-bold px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1.5 shrink-0">
                           <RotateCw className="w-3 h-3" />
                           Tap to View Details
                         </span>
                       </div>
 
                       {/* Bottom Info Pill */}
-                      <div className="relative z-10 mt-auto pt-20">
-                        <div className="flex items-center justify-between gap-3 rounded-2xl bg-black/65 backdrop-blur-xl border border-white/20 p-3.5 text-white shadow-2xl">
+                      <div className="relative z-10 mt-auto pt-16">
+                        <div className="flex items-center justify-between gap-3 rounded-2xl bg-black/75 backdrop-blur-xl border border-white/20 p-3.5 text-white shadow-2xl">
                           <div className="min-w-0 flex-1">
                             <h3 className="text-base font-bold truncate leading-tight">
                               {activeDoctor.name}
@@ -253,7 +248,7 @@ export const DoctorsPage: React.FC = () => {
                               {activeDoctor.role}
                             </p>
                           </div>
-                          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#FF5500] text-white shadow-md">
+                          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#FF5500] text-white shadow-md">
                             <RotateCw className="w-4 h-4" />
                           </div>
                         </div>
@@ -261,19 +256,22 @@ export const DoctorsPage: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* BACK SIDE (MOBILE) */}
-                  <div 
+                  {/* BACK SIDE (MOBILE - iOS Flip Fix Applied) */}
+                  <div
                     onClick={() => setIsFlipped(false)}
-                    className="absolute inset-0 w-full h-full rounded-[2.2rem] bg-white border border-slate-200/80 p-5 flex flex-col justify-between [backface-visibility:hidden] [transform:rotateY(180deg)] shadow-xl overflow-y-auto cursor-pointer"
+                    style={{ WebkitBackfaceVisibility: "hidden" }}
+                    className={`absolute inset-0 w-full h-full rounded-[2rem] bg-white border border-slate-200/80 p-4 sm:p-5 flex flex-col justify-between [backface-visibility:hidden] [transform:rotateY(180deg)] shadow-xl cursor-pointer ${
+                      isFlipped ? "pointer-events-auto" : "pointer-events-none"
+                    }`}
                   >
-                    <div className="space-y-4">
+                    <div className="space-y-3.5 overflow-y-auto no-scrollbar pr-0.5">
                       {/* Back Header */}
-                      <div className="flex items-center justify-between border-b border-slate-100 pb-3">
-                        <div>
-                          <span className="text-[10px] font-bold uppercase tracking-widest text-[#FF5500]">
+                      <div className="flex items-center justify-between border-b border-slate-100 pb-2.5">
+                        <div className="min-w-0 flex-1 pr-2">
+                          <span className="text-[10px] font-bold uppercase tracking-widest text-[#FF5500] block truncate">
                             {activeDoctor.role}
                           </span>
-                          <h3 className="text-xl font-black text-[#111827]">
+                          <h3 className="text-lg font-black text-[#111827] truncate">
                             {activeDoctor.name}
                           </h3>
                         </div>
@@ -283,7 +281,7 @@ export const DoctorsPage: React.FC = () => {
                             e.stopPropagation();
                             setIsFlipped(false);
                           }}
-                          className="flex items-center gap-1 text-[10px] font-bold text-slate-700 bg-slate-100 px-3 py-1.5 rounded-full border border-slate-300 touch-manipulation active:scale-95 transition-transform"
+                          className="shrink-0 flex items-center gap-1 text-[10px] font-bold text-slate-700 bg-slate-100 px-2.5 py-1.5 rounded-full border border-slate-300 touch-manipulation active:scale-95 transition-transform"
                         >
                           <RotateCw className="w-3 h-3 text-[#FF5500]" />
                           Back Photo
@@ -292,41 +290,41 @@ export const DoctorsPage: React.FC = () => {
 
                       {/* Degrees */}
                       <div className="flex flex-wrap items-center gap-1.5">
-                        <span className="text-[10px] font-bold text-[#FF5500] bg-[#FF5500]/10 border border-[#FF5500]/20 px-2.5 py-0.5 rounded-md">
+                        <span className="text-[10px] font-bold text-[#FF5500] bg-[#FF5500]/10 border border-[#FF5500]/20 px-2 py-0.5 rounded-md">
                           {activeDoctor.degrees}
                         </span>
-                        <span className="text-[10px] font-semibold text-slate-500 bg-slate-100 px-2.5 py-0.5 rounded-md">
+                        <span className="text-[10px] font-semibold text-slate-500 bg-slate-100 px-2 py-0.5 rounded-md">
                           {activeDoctor.regNo}
                         </span>
                       </div>
 
                       {/* Bio */}
-                      <p className="text-xs text-slate-600 leading-relaxed italic">
+                      <p className="text-[11px] text-slate-600 leading-relaxed italic">
                         "{activeDoctor.bio}"
                       </p>
 
-                      {/* Specialties */}
-                      <div className="space-y-2">
+                      {/* Specialties (Full non-truncated text) */}
+                      <div className="space-y-1.5">
                         <h4 className="text-[10px] font-black uppercase tracking-wider text-slate-400">
                           Specialties
                         </h4>
-                        <div className="grid grid-cols-2 gap-1.5">
+                        <div className="grid grid-cols-1 gap-1.5">
                           {activeDoctor.specialties.map((spec, i) => (
                             <div
                               key={i}
-                              className="flex items-center gap-1.5 bg-slate-50 border border-slate-100 rounded-lg p-2 text-[11px] text-slate-700 font-medium truncate"
+                              className="flex items-start gap-2 bg-slate-50 border border-slate-100 rounded-lg p-2 text-[11px] text-slate-700 font-medium leading-snug"
                             >
-                              <CheckCircle2 className="w-3.5 h-3.5 text-[#FF5500] shrink-0" />
-                              <span className="truncate">{spec}</span>
+                              <CheckCircle2 className="w-3.5 h-3.5 text-[#FF5500] shrink-0 mt-0.5" />
+                              <span className="whitespace-normal break-words">{spec}</span>
                             </div>
                           ))}
                         </div>
                       </div>
                     </div>
 
-                    {/* Action Buttons */}
-                    <div 
-                      className="pt-3 border-t border-slate-100 flex items-center gap-2"
+                    {/* Action Buttons (Always fully visible at bottom) */}
+                    <div
+                      className="pt-3 mt-2 border-t border-slate-100 flex items-center gap-2 shrink-0"
                       onClick={(e) => e.stopPropagation()}
                     >
                       <Link
@@ -339,7 +337,7 @@ export const DoctorsPage: React.FC = () => {
 
                       <a
                         href="tel:+917483822917"
-                        className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-xs font-bold text-[#111827] active:scale-95 transition-transform"
+                        className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-slate-200 bg-white px-3.5 py-2.5 text-xs font-bold text-[#111827] active:scale-95 transition-transform"
                       >
                         <Phone className="w-3.5 h-3.5 text-[#FF5500]" />
                         <span>Call</span>
@@ -407,10 +405,10 @@ export const DoctorsPage: React.FC = () => {
                       {activeDoctor.specialties.map((spec, i) => (
                         <div
                           key={i}
-                          className="flex items-center gap-2 bg-slate-50 border border-slate-100 rounded-xl p-2.5 text-xs text-slate-700 font-medium"
+                          className="flex items-start gap-2 bg-slate-50 border border-slate-100 rounded-xl p-2.5 text-xs text-slate-700 font-medium leading-snug"
                         >
-                          <CheckCircle2 className="w-4 h-4 text-[#FF5500] shrink-0" />
-                          <span className="truncate">{spec}</span>
+                          <CheckCircle2 className="w-4 h-4 text-[#FF5500] shrink-0 mt-0.5" />
+                          <span className="whitespace-normal break-words">{spec}</span>
                         </div>
                       ))}
                     </div>

@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Calendar, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate, useLocation } from "react-router-dom";
-import logo from "@/assets/logo-dental.png";
+import logo from "@/assets/logo-dental.webp";
 
 // Direct page navigation routing setup
 const navItems = [
@@ -22,7 +22,7 @@ const Navbar = () => {
   const location = useLocation();
 
   const appointmentUrl =
-    "https://www.practo.com/shimoga/doctor/akarsh-niranjan-dentist";
+    "https://wa.me/917483822917?text=Hello%20Dr.%20Holla's%20Wide%20Smiles%20Dental%20Clinic,%20I%20would%20like%20to%20book%20an%20appointment.";
 
   useEffect(() => {
     const onScroll = () => {

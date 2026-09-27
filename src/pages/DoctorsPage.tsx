@@ -16,7 +16,7 @@ import {
   Stethoscope,
   UserCheck,
 } from "lucide-react";
-import  Doctor from "@/assets/doctor-hero.jpg";
+import  Doctor from "@/assets/doctor-hero.webp";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 

@@ -18,8 +18,8 @@ import {
   CheckCircle2,
 } from "lucide-react";
 
-import WhiteTeeth from "@/assets/white.png";
-import YellowTeeth from "@/assets/yellow.png";
+import WhiteTeeth from "@/assets/white.webp";
+import YellowTeeth from "@/assets/yellow.webp";
 
 /* =========================================================
    DATA

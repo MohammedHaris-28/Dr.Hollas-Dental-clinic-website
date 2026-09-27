@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { feedbackConfig } from "@/config/feedbackConfig";
-import logo from "@/assets/logo-dental.png";
+import logo from "@/assets/logo-dental.webp";
 
 type FlowStep = "RATING" | "POSITIVE_DASHBOARD";
 

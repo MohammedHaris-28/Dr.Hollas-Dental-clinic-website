@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import logo from "@/assets/logo-dental.png";
+import logo from "@/assets/logo-dental.webp";
 
 interface SplashScreenProps {
   onComplete?: () => void;

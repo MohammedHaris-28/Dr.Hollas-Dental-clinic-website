@@ -9,7 +9,7 @@ import {
   MessageCircle,
 } from "lucide-react";
 
-import logo from "@/assets/logo-dental.png";
+import logo from "@/assets/logo-dental.webp";
 
 const treatmentsList = [
   { name: "General Dentistry", slug: "general-dentistry" },
